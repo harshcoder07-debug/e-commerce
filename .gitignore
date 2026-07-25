@@ -1,0 +1,13 @@
+node_modules/
+
+.dart_tool/
+build/
+
+.env
+
+android/local.properties
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+.idea/
+.vscode/
