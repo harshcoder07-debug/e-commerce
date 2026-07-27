@@ -2,7 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopit/bloc/bloc/auth_bloc.dart';
+import 'package:shopit/bloc/bloc/auth_state.dart';
+import 'package:shopit/repository/Authrepository.dart';
 import 'package:shopit/widgets/Authscreen.dart';
+import 'package:shopit/widgets/Authwrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +19,7 @@ class MerchantApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => AuthBloc(authrepo: null),
+      create: (_) => AuthBloc(authRepo: AuthRepository()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Merchant',
@@ -25,7 +28,7 @@ class MerchantApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF3F51D8)),
           fontFamily: 'Inter',
         ),
-        home:  AuthScreen(),
+        home: AuthWrapper(),
       ),
     );
   }

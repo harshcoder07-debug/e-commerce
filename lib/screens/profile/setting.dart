@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopit/bloc/bloc/auth_bloc.dart';
-import 'package:shopit/bloc/bloc/auth_event.dart';
+import 'package:shopit/bloc/bloc/auth_event.dart' show AuthUserLogoutChanged;
 import 'package:shopit/bloc/bloc/auth_state.dart';
+import 'package:shopit/widgets/Authwrapper.dart';
 
-import 'package:shopit/widgets/Authscreen.dart';
-import 'package:shopit/widgets/Authwrapper.dart'; // Ensure this path matches your project layout
-
-class home extends StatelessWidget {
-  const home({super.key});
+class Setting extends StatelessWidget {
+  const Setting({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // 1. Wrap the Scaffold with a BlocListener
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        // When the state becomes Authlogout, change screens instantly
         if (state is Authlogout) {
-          Navigator.pushReplacement(
-            context,
+          Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const AuthWrapper()),
+            (route) => false,
           );
         }
       },
       child: Scaffold(
         body: Center(
           child: ElevatedButton(
-            onPressed: () {
-              // 2. Trigger the logout process event
-              context.read<AuthBloc>().add(AuthUserLogoutChanged());
-            },
+            onPressed: () =>
+                context.read<AuthBloc>().add(AuthUserLogoutChanged()),
             child: const Text("logout"),
           ),
         ),

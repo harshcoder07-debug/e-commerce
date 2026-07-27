@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 abstract class AuthEvent {}
 
 class ShowLogin extends AuthEvent {}
@@ -18,5 +20,12 @@ class Signuprequest {
   final String signuppassword;
 
   Signuprequest(this.Signupemail, this.signuppassword);
-  
 }
+
+class Authuserchnged extends AuthEvent {
+  final User user;
+  Authuserchnged(this.user);
+}
+class AuthUserUnauthenticated extends AuthEvent {}
+//logout event
+class AuthUserLogoutChanged extends AuthEvent {}

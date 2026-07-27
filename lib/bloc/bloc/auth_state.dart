@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shopit/bloc/bloc/auth_event.dart';
 
 abstract class AuthState {
@@ -25,11 +26,18 @@ class Authinitial extends AuthState {}
 class Authloading extends AuthState {}
 
 //Authsucess
-class Authsucess extends AuthState {}
+class Authsucess extends AuthState {
+  Authsucess(User user);
+}
 
 //failed Auth
 class Authfailed extends AuthState {
   final String erromessage;
 
   Authfailed(this.erromessage);
+}
+
+class Authlogout extends AuthState {
+  @override
+  bool get islogin => true;
 }

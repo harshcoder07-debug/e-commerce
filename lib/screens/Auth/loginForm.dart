@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:shopit/widgets/custombutton.dart';
-import 'package:shopit/widgets/textinputfeild.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopit/bloc/bloc/auth_bloc.dart' show AuthBloc;
+import 'package:shopit/bloc/bloc/auth_event.dart';
+import 'package:shopit/widgets/custombutton.dart' show Custombutton;
+import 'package:shopit/widgets/textinputfeild.dart' show Textinputfeild;
 
-class LoginForm extends StatelessWidget {
-  final TextEditingController _emailcontroller = TextEditingController();
-  final TextEditingController _passwordcontroller = TextEditingController();
-  LoginForm({super.key});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  // Controllers live safely inside the State object
+  final TextEditingController emailcontroller = TextEditingController();
+  final TextEditingController passwordcontroller = TextEditingController();
+
+  @override
+  void dispose() {
+    // Always clean up controllers to prevent focus and cursor bugs
+    emailcontroller.dispose();
+    passwordcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,24 +31,28 @@ class LoginForm extends StatelessWidget {
       children: [
         Textinputfeild(
           showtext: 'Enter Email',
-          controller: _emailcontroller,
+          controller: emailcontroller,
           texticon: Icons.email,
           rowtext: 'Email',
         ),
-        SizedBox(height: 18),
+        const SizedBox(height: 18),
         Textinputfeild(
           showtext: 'Enter Password',
-          controller: _passwordcontroller,
+          controller: passwordcontroller,
           texticon: Icons.password,
           rowtext: 'Password',
-          forgot: TextButton(onPressed: () {}, child: Text("Forgot?")),
+          forgot: TextButton(onPressed: () {}, child: const Text("Forgot?")),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Custombutton(
-          buttontap: () {},
+          buttontap: () {
+            context.read<AuthBloc>().add(
+              loginrequest(emailcontroller.text.trim(), passwordcontroller.text),
+            );
+          },
           buttoncolors: Colors.blue,
           Showtext: 'Login',
-          textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           textcolors: Colors.white,
           text: 'Login',
         ),
