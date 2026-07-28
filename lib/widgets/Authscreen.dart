@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocListener, BlocBuilder;
-import 'package:shopit/bloc/bloc/auth_bloc.dart' show AuthBloc;
-import 'package:shopit/bloc/bloc/auth_state.dart'
+import 'package:shopit/bloc/Authbloc/auth_bloc.dart' show AuthBloc;
+import 'package:shopit/bloc/Authbloc/auth_state.dart'
     show AuthState, SignupState, Authfailed;
 import 'package:shopit/screens/Auth/Signupform.dart' show RegisterForm;
 import 'package:shopit/screens/Auth/loginForm.dart' show LoginForm;
@@ -25,7 +25,7 @@ class AuthScreen extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 child: Material(
                   elevation: 6,
-                  shadowColor: Colors.black.withOpacity(0.4),
+                  shadowColor: Colors.black.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(30),
                   color: const Color.fromARGB(255, 206, 52, 41),
                   child: Padding(

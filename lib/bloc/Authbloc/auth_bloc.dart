@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopit/bloc/bloc/auth_event.dart';
-import 'package:shopit/bloc/bloc/auth_state.dart';
+import 'package:shopit/bloc/Authbloc/auth_event.dart';
+import 'package:shopit/bloc/Authbloc/auth_state.dart';
 import 'package:shopit/repository/Authrepository.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {

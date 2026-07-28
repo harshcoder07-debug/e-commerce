@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopit/bloc/bloc/auth_bloc.dart' show AuthBloc;
-import 'package:shopit/bloc/bloc/auth_event.dart';
+import 'package:shopit/bloc/Authbloc/auth_bloc.dart' show AuthBloc;
+import 'package:shopit/bloc/Authbloc/auth_event.dart';
 import 'package:shopit/widgets/custombutton.dart' show Custombutton;
 import 'package:shopit/widgets/textinputfeild.dart' show Textinputfeild;
 

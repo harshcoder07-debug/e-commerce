@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopit/bloc/bloc/auth_bloc.dart';
-import 'package:shopit/bloc/bloc/auth_event.dart';
-import 'package:shopit/bloc/bloc/auth_state.dart';
+import 'package:shopit/bloc/Authbloc/auth_bloc.dart';
+import 'package:shopit/bloc/Authbloc/auth_event.dart';
+import 'package:shopit/bloc/Authbloc/auth_state.dart';
 
 class AuthToggle extends StatelessWidget {
   const AuthToggle({super.key});

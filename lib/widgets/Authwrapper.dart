@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopit/bloc/bloc/auth_bloc.dart';
-import 'package:shopit/bloc/bloc/auth_state.dart';
-import 'package:shopit/screens/home/home_screen.dart';
+import 'package:shopit/bloc/Authbloc/auth_bloc.dart';
+import 'package:shopit/bloc/Authbloc/auth_state.dart';
+import 'package:shopit/main.dart';
+
 import 'package:shopit/widgets/Authscreen.dart';
 
 class AuthWrapper extends StatelessWidget {
@@ -11,7 +12,6 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
-    
       listener: (context, state) {
         if (state is Authsucess) {
           ScaffoldMessenger.of(context).clearMaterialBanners();
@@ -25,7 +25,7 @@ class AuthWrapper extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 child: Material(
                   elevation: 6,
-                  shadowColor: Colors.black.withOpacity(0.4),
+                  shadowColor: Colors.black.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(30),
                   color: Colors.black,
                   child: const Padding(
@@ -64,7 +64,7 @@ class AuthWrapper extends StatelessWidget {
 
       builder: (context, state) {
         if (state is Authsucess) {
-          return const home();
+          return const Mainscreen();
         }
         return const AuthScreen();
       },
