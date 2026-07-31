@@ -28,8 +28,8 @@ def home():
 def get_products():
     return product
 @app.get("/products/{product_id}")
-def get_product(product_id:int):
-    for product in get_products:
-        if product["id"]== product_id:
-            return product
-        return {"Error":"Product not found"}
+def get_product(product_id: int):
+    for p in product:
+        if p["id"] == product_id:
+            return p
+    return {"error": "Product not found"}

@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:shopit/Model/product_model.dart';
+import 'package:shopit/Services/Apiservice.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -154,6 +156,41 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+                SizedBox(height: 20),
+                FutureBuilder<List<Product>>(
+                  future: ApiService().getProducts(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    final products = snapshot.data!;
+
+                    return SizedBox(
+                      height: 250,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: products.length,
+                        itemBuilder: (context, index) {
+                          final product = products[index];
+
+                          return Card(
+                            child: Column(
+                              children: [
+                                Image.network(
+                                  product.image,
+                                  width: 120,
+                                  height: 120,
+                                ),
+                                Text(product.name),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
