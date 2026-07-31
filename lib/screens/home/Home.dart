@@ -1,8 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:shopit/Model/product_model.dart';
-import 'package:shopit/Services/Apiservice.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopit/bloc/homebloc/homebloc_bloc.dart';
+import 'package:shopit/bloc/homebloc/homebloc_state.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -14,187 +15,205 @@ class Home extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(title: Text("Merchant", style: TextStyle(fontSize: 28))),
         drawer: Drawer(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // heading text here
-                Text(
-                  "Curated",
-                  style: TextStyle(fontSize: 39, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "Excellence",
-                  style: TextStyle(
-                    fontSize: 27,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                  ),
-                ),
-
-                // image + stack blur container
-                SizedBox(
-                  height: 430,
-                  width: double.infinity,
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
-                          image: const DecorationImage(
-                            image: AssetImage("images/hhomeimg.png"),
-                            fit: BoxFit.cover,
+        body: BlocBuilder<HomeblocBloc, HomeblocState>(
+          builder: (context, state) {
+            if (state is homeloadingstate) {
+              return Center(child: const CircularProgressIndicator());
+            }
+            if (state is homerror) {
+              return Center(child: Text(state.errormsg));
+            }
+            if (state is homeloaded) {
+              final products = state.product;
+              return CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // heading text here
+                        Text(
+                          "Curated",
+                          style: TextStyle(
+                            fontSize: 39,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
+                        Text(
+                          "Excellence",
+                          style: TextStyle(
+                            fontSize: 27,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                          ),
+                        ),
 
-                      //postion or secon card over it
-                      Positioned(
-                        bottom: 20,
-                        left: 20,
-                        right: 20,
-
-                        child: ClipRRect(
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                            child: Container(
-                              height: 200,
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.06),
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: Colors.white.withValues(
-                                    alpha: 0.15,
-                                  ), // Refractive borders
-                                  width: 1,
+                        // image + stack blur container
+                        SizedBox(
+                          height: 430,
+                          width: double.infinity,
+                          child: Stack(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(24),
+                                  image: const DecorationImage(
+                                    image: AssetImage("images/hhomeimg.png"),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Summer Series 2026",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: const Color.fromARGB(
-                                        255,
-                                        188,
-                                        180,
-                                        180,
-                                      ),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    "The Art of Slow\nLiving",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(height: 20),
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadiusGeometry.circular(15),
-                                      ),
-                                      backgroundColor: Colors.blue,
-                                      foregroundColor: Colors.white,
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 20,
-                                        vertical: 10,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      "Explore More",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
 
-                                  //new Arrival
-                                ],
+                              //postion or secon card over it
+                              Positioned(
+                                bottom: 20,
+                                left: 20,
+                                right: 20,
+
+                                child: ClipRRect(
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                      sigmaX: 10,
+                                      sigmaY: 10,
+                                    ),
+                                    child: Container(
+                                      height: 200,
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white.withValues(
+                                          alpha: 0.06,
+                                        ),
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(
+                                          color: Colors.white.withValues(
+                                            alpha: 0.15,
+                                          ), // Refractive borders
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Summer Series 2026",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: const Color.fromARGB(
+                                                255,
+                                                188,
+                                                180,
+                                                180,
+                                              ),
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Text(
+                                            "The Art of Slow\nLiving",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          SizedBox(height: 20),
+                                          ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadiusGeometry.circular(
+                                                      15,
+                                                    ),
+                                              ),
+                                              backgroundColor: Colors.blue,
+                                              foregroundColor: Colors.white,
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 20,
+                                                vertical: 10,
+                                              ),
+                                            ),
+                                            child: Text(
+                                              "Explore More",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          //new Arrival
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "New Arivals",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Explore More",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                          fontSize: 18,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "New Arrivals",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: const Text("Explore More"),
+                            ),
+                          ],
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                FutureBuilder<List<Product>>(
-                  future: ApiService().getProducts(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-
-                    final products = snapshot.data!;
-
-                    return SizedBox(
-                      height: 250,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: products.length,
-                        itemBuilder: (context, index) {
-                          final product = products[index];
+                  ),
+                  SliverPadding(
+                    padding: EdgeInsets.symmetric(horizontal: 7),
+                    sliver: SliverGrid(
+                      delegate: SliverChildBuilderDelegate(
+                        childCount: products.length,
+                        (context, index) {
+                          final productsample = products[index];
 
                           return Card(
                             child: Column(
                               children: [
-                                Image.network(
-                                  product.image,
-                                  width: 120,
-                                  height: 120,
+                                Expanded(
+                                  child: Image.network(
+                                    productsample.image,
+                                    height: 200,
+                                    width: 200,
+                                  ),
                                 ),
-                                Text(product.name),
+                                Text(productsample.name),
                               ],
                             ),
                           );
                         },
                       ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            childAspectRatio: 0.7,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                          ),
+                    ),
+                  ),
+                ],
+              );
+            }
+            return SizedBox.shrink();
+          },
         ),
       ),
     );
