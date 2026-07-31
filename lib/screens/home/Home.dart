@@ -64,11 +64,11 @@ class Home extends StatelessWidget {
                               height: 200,
                               padding: EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.06),
+                                color: Colors.white.withValues(alpha: 0.06),
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(
-                                  color: Colors.white.withOpacity(
-                                    0.15,
+                                  color: Colors.white.withValues(
+                                    alpha: 0.15,
                                   ), // Refractive borders
                                   width: 1,
                                 ),
@@ -120,8 +120,8 @@ class Home extends StatelessWidget {
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
+
                                   //new Arrival
-                                  
                                 ],
                               ),
                             ),
@@ -130,6 +130,30 @@ class Home extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "New Arivals",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Explore More",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
