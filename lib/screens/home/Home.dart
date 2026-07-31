@@ -184,28 +184,34 @@ class Home extends StatelessWidget {
                         (context, index) {
                           final productsample = products[index];
 
-                          return Card(
-                            child: Column(
-                              children: [
-                                Expanded(
+                          return Column(
+                            children: [
+                              Expanded(
+                                child: Card(
+                                  elevation: 0,
+                                  clipBehavior: Clip.antiAlias,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(32),
+                                  ),
                                   child: Image.network(
                                     productsample.image,
-                                    height: 200,
-                                    width: 200,
+                                    width: double.infinity,
+                                    height: 180,
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
-                                Text(productsample.name),
-                              ],
-                            ),
+                              ),
+                              Row(children: [Text(productsample.name)]),
+                            ],
                           );
                         },
                       ),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 1,
-                            childAspectRatio: 0.7,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
+                            childAspectRatio: 0.8,
+                            crossAxisSpacing: 5,
+                            mainAxisSpacing: 5,
                           ),
                     ),
                   ),
