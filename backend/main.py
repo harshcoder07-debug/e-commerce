@@ -22,10 +22,35 @@ products = [
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4BEts5j-X3yT0Bqw9zuKS9PtVxJIB2vZEWWj2kdngUQ&s=10",
         "description": "Immersive Spatial Audio: Tuned drivers deliver 360-degree positional sound so you can hear every footstep, reload, and environmental cue. Crystal-Clear Communication: Broadcast-grade, noise-canceling microphone filters out background noise for flawless team callouts. Pro-Marathon Comfort: Ultra-soft memory foam earcups and a lightweight, suspension headband eliminate clamping pressure during long sessions. Universal Multi-Platform Fit: Seamlessly plugs into or pairs with PC, PlayStation 5, Xbox Series X|S, Nintendo Switch, and mobile devices. Lag-Free Connection: Experience zero audio delay with high-speed connections designed for competitive, fast-paced gameplay."
     }
+    ,
+
+    {
+        "id": 4,
+        "name": "Samsung S24",
+        "price": 1299.99,
+        "image": "https://itechstore.co.in/uploads/products/16-pro-pdp-1.jpg",
+        "description": "The Samsung Galaxy S24 is a premium, compact flagship smartphone that prioritises high-end performance, mobile AI innovation, and a streamlined, comfortable design."
+    },
+    {
+        "id": 5,
+        "name": "Macbook",
+        "price": 1599.99,
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsthQsnPU6yjwM4PLL1U9oXmady4g9vk_Z9IB2A5rZEg&s=10",
+        "description": "The MacBook is Apple premium line of laptop computers, globally recognized for its sleek aluminum design, exceptional battery life, and powerful custom Apple Silicon processors."
+    },
+    {
+        "id": 6,
+        "name": "Wireless Mouse",
+        "price": 149.99,
+        "image": "https://cdn.shopify.com/s/files/1/0015/6932/5091/files/wireless-bluetooth-mouse-for-laptop-rechargeable-mouse-2-4g-usb-optical-wireless-mouse-led-slim-dual-mode-bluetooth-5-0-and-2-4g-wireless-mouse-for-laptop-pc-894.webp",
+        "description": "Premium Wireless Mouse  Ergononic, Silent-Click, Dual-Mode"
+    }
 ]
+    
+
 @app.get("/")
 def home():
-    return {"message": "Shop Api ir live"}
+    return {"message": "Shop Api is live"}
 @app.get("/products")
 def get_products():
     return products

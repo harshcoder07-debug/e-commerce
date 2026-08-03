@@ -201,7 +201,41 @@ class Home extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Row(children: [Text(productsample.name)]),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          productsample.name,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          '${productsample.price} ₹',
+                                          style: TextStyle(
+                                            color: Colors.blue,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      productsample.description,
+                                      maxLines: 2,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           );
                         },
