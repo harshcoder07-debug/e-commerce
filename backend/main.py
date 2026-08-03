@@ -28,7 +28,7 @@ products = [
         "id": 4,
         "name": "Samsung S24",
         "price": 1299.99,
-        "image": "https://itechstore.co.in/uploads/products/16-pro-pdp-1.jpg",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2vNt6sg5OHIAwPpmlXsbyXunnsj6U8QjmbHZRrdnjc8aKXxlYt2SFRobj&s=10",
         "description": "The Samsung Galaxy S24 is a premium, compact flagship smartphone that prioritises high-end performance, mobile AI innovation, and a streamlined, comfortable design."
     },
     {
