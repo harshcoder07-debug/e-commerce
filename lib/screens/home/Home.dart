@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopit/bloc/homebloc/homebloc_bloc.dart';
 import 'package:shopit/bloc/homebloc/homebloc_state.dart';
+import 'package:shopit/screens/home/productdetial.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -187,17 +188,29 @@ class Home extends StatelessWidget {
                           return Column(
                             children: [
                               Expanded(
-                                child: Card(
-                                  elevation: 0,
-                                  clipBehavior: Clip.antiAlias,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(32),
-                                  ),
-                                  child: Image.network(
-                                    productsample.image,
-                                    width: double.infinity,
-                                    height: 180,
-                                    fit: BoxFit.contain,
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Productdetial(
+                                          productdetail: productsample,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Card(
+                                    elevation: 0,
+                                    clipBehavior: Clip.antiAlias,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(32),
+                                    ),
+                                    child: Image.network(
+                                      productsample.image,
+                                      width: double.infinity,
+                                      height: 180,
+                                      fit: BoxFit.contain,
+                                    ),
                                   ),
                                 ),
                               ),
