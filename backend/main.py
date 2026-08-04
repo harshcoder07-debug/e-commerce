@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 app = FastAPI(title="Product Api")
+from fastapi.middleware.cors import CORSMiddleware
 products = [
     {
         "id": 1,
@@ -60,3 +61,19 @@ def get_product(product_id: int):
         if p["id"] == product_id:
             return p
     return {"error": "Product not found"}
+app.add_middleware(CORSMiddleware,allow_methods=["*"],allow_origins=["*"])
+
+DATABASE =[ 
+    {"name": "Oversized Beige Blazer", "category": "Minimalist Fashion"},
+    {"name": "White Cotton Tee", "category": "Minimalist Fashion"},
+    {"name": "90s Denim Jacket", "category": "Vintage"},
+    {"name": "Graphic Skate Hoodie", "category": "Streetwear"},
+    ]
+
+# //function for sending request to Api 
+@app.get("/productCatecogires")
+def get_data():
+    return {
+        "categories":["All Categories","Electronics","Essebtials"],
+        "products":DATABASE
+    }

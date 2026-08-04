@@ -12,7 +12,7 @@ class Productdetial extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               width: double.infinity,
               height: 350,
               child: Image.network(productdetail.image, fit: BoxFit.contain),

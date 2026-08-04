@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopit/bloc/homebloc/homebloc_bloc.dart';
 import 'package:shopit/bloc/homebloc/homebloc_state.dart';
 import 'package:shopit/screens/home/productdetial.dart';
+import 'package:shopit/widgets/filterchoicechip.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -158,22 +159,31 @@ class Home extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              "New Arrivals",
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 10,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "New Arrivals",
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text("Explore More"),
-                            ),
-                          ],
+                              TextButton(
+                                onPressed: () {},
+                                child: const Text("Explore More"),
+                              ),
+                            ],
+                          ),
                         ),
+
+                        //coice chip categories
+                        Filterchoicechip(),
                       ],
                     ),
                   ),
