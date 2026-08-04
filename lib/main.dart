@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopit/Services/Apiservice.dart';
 import 'package:shopit/bloc/Authbloc/auth_bloc.dart';
-import 'package:shopit/bloc/filterbloc/filter_bloc_bloc.dart';
-import 'package:shopit/bloc/filterbloc/filter_bloc_event.dart';
 import 'package:shopit/bloc/homebloc/homebloc_bloc.dart';
 import 'package:shopit/bloc/homebloc/homebloc_event.dart';
 import 'package:shopit/bloc/homenavbloc/bloc/home_nav_bloc_bloc.dart';
@@ -35,9 +33,7 @@ class MerchantApp extends StatelessWidget {
         BlocProvider(
           create: (context) => HomeblocBloc(ApiService())..add(loadproducts()),
         ),
-        BlocProvider(
-          create: (context) => FilterBlocBloc()..add(FetchproductApi()),
-        ),
+        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

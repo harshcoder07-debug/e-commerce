@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopit/bloc/filterbloc/filter_bloc_bloc.dart';
-import 'package:shopit/bloc/filterbloc/filter_bloc_event.dart';
-import 'package:shopit/bloc/filterbloc/filter_bloc_state.dart';
+import 'package:shopit/bloc/homebloc/homebloc_bloc.dart';
+import 'package:shopit/bloc/homebloc/homebloc_event.dart';
+import 'package:shopit/bloc/homebloc/homebloc_state.dart';
 
 class Filterchoicechip extends StatelessWidget {
   const Filterchoicechip({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FilterBlocBloc, FilterBlocState>(
+    return BlocBuilder<HomeblocBloc, HomeblocState>(
       builder: (context, state) {
         if (state is! Filterloaded) {
           return const SizedBox();
@@ -31,7 +31,7 @@ class Filterchoicechip extends StatelessWidget {
                   selected: isSelected,
                   showCheckmark: false,
                   onSelected: (_) {
-                    context.read<FilterBlocBloc>().add(
+                    context.read<HomeblocBloc>().add(
                       Selectcategoryfilter(category),
                     );
                   },
