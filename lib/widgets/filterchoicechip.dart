@@ -29,7 +29,9 @@ class Filterchoicechip extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: ChoiceChip(
-                  color: isSelected ? Colors.blue,
+                  labelStyle: TextStyle(
+                    color: isSelected ? Colors.blue : Colors.transparent,
+                  ),
                   label: Text(category),
                   selected: isSelected,
                   showCheckmark: false,
