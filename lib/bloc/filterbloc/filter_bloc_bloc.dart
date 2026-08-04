@@ -12,13 +12,13 @@ class FilterBlocBloc extends Bloc<FilterBlocEvent, FilterBlocState> {
       emit(Filterloading());
       try {
         final respose = await http.get(
-          Uri.parse("https://e-commerce-v4qt.onrender.com/products"),
+          Uri.parse("https://e-commerce-v4qt.onrender.com/productCatecogires"),
         );
         if (respose.statusCode == 200) {
           final Map<String, dynamic> data = jsonDecode(respose.body);
           emit(
             Filterloaded(
-              categories: data["Categories"],
+              categories: data["categories"],
               allproducts: data['products'],
               filteredproducts: data['products'], // Show all items initially
               selectedcategores: "All Curations",
@@ -39,7 +39,7 @@ class FilterBlocBloc extends Bloc<FilterBlocEvent, FilterBlocState> {
         final newFilterlist = event.categoryname == "All Curations"
             ? currentstate.allproducts
             : currentstate.allproducts
-                  .where((p) => p['Categories'] == event.categoryname)
+                  .where((p) => p['category'] == event.categoryname)
                   .toList();
         emit(
           Filterloaded(

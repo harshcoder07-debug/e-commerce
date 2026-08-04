@@ -164,26 +164,36 @@ class Home extends StatelessWidget {
                             horizontal: 10,
                             vertical: 10,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                "New Arrivals",
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "New Arrivals",
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {},
+                                    child: Text("See All"),
+                                  ),
+                                ],
                               ),
-                              TextButton(
-                                onPressed: () {},
-                                child: const Text("Explore More"),
-                              ),
+                              SizedBox(height: 10),
+
+                              Filterchoicechip(),
+
+                              SizedBox(height: 20),
                             ],
                           ),
                         ),
 
                         //coice chip categories
-                        Filterchoicechip(),
                       ],
                     ),
                   ),
