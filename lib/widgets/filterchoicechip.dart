@@ -11,7 +11,7 @@ class Filterchoicechip extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeblocBloc, HomeblocState>(
       builder: (context, state) {
-        if (state is! Filterloaded) {
+        if (state is! homeloaded) {
           return const SizedBox();
         }
 
