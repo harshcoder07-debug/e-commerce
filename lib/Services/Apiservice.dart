@@ -3,19 +3,20 @@ import 'package:http/http.dart' as http;
 import 'package:shopit/Model/product_model.dart';
 
 class ApiService {
-  Future<List<Product>> getProducts() async {
+  Future<List<Product>> getProducts({
+    String category = "All Categories",
+  }) async {
     final response = await http.get(
-      Uri.parse("https://e-commerce-v4qt.onrender.com/products"),
+      Uri.parse(
+        "https://e-commerce-v4qt.onrender.com/products?category=$category",
+      ),
     );
-
-    print(response.statusCode);
-    print(response.body);
 
     if (response.statusCode == 200) {
       final List data = jsonDecode(response.body);
       return data.map((e) => Product.fromJson(e)).toList();
     }
 
-    throw Exception("Failed");
+    throw Exception("Failed to load products");
   }
 }
