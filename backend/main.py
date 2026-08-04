@@ -59,8 +59,14 @@ products = [
 def home():
     return {"message": "Shop Api is live"}
 @app.get("/products")
-def get_products():
-    return products
+def get_products(category: str = "All Categories"):
+    if category == "All Categories":
+        return products
+
+    return [
+        p for p in products
+        if p["category"] == category
+    ]
 @app.get("/products/{product_id}")
 def get_product(product_id: int):
     for p in products:
