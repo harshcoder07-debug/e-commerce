@@ -40,7 +40,7 @@ products = [
         "id": 5,
         "name": "Macbook",
         "price": 1599.99,
-        "category": "Electronics",
+        "category": "laptop",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsthQsnPU6yjwM4PLL1U9oXmady4g9vk_Z9IB2A5rZEg&s=10",
         "description": "The MacBook is Apple premium line of laptop computers, globally recognized for its sleek aluminum design, exceptional battery life, and powerful custom Apple Silicon processors."
     },
@@ -64,7 +64,7 @@ products = [
         "id": 8,
         "name": "Shirt",
         "price": 1599.99,
-        "category": "laptop",
+        "category": "Clothing",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSib__yaUqfzT15NczHSfLTzC--r5wQVgAvTG8Hm6G0GA&s=10",
         "description": "Maximum Thermal Control: Keeps your high-end CPU and GPU running cool to eliminate FPS drops and thermal throttling. Pro-Grade Ergonomics: Elevates your screen to eye level to reduce neck strain during marathon gaming sessions. Heavy-Duty Stability: Built from rugged materials to securely support heavy 15.6\" to 17.3\" gaming rigs without shaking. Seamless Connectivity: Integrated ports expand your setup instantly for mice, keyboards, and external storage. Gaming Aesthetic: Sleek, modern design that integrates perfectly with your existing RGB setup."
         },
@@ -72,7 +72,7 @@ products = [
         "id": 9,
         "name": "Shoes Men",
         "price": 149.99,
-        "category": "Electronics",
+        "category": "Shoes",
         "image": "https://plaeto.in/cdn/shop/files/1_353aad53-b809-446e-9386-89e1dae6374b.jpg?v=1754980288&width=5000",
         "description": "Immersive Spatial Audio: Tuned drivers deliver 360-degree positional sound so you can hear every footstep, reload, and environmental cue. Crystal-Clear Communication: Broadcast-grade, noise-canceling microphone filters out background noise for flawless team callouts. Pro-Marathon Comfort: Ultra-soft memory foam earcups and a lightweight, suspension headband eliminate clamping pressure during long sessions. Universal Multi-Platform Fit: Seamlessly plugs into or pairs with PC, PlayStation 5, Xbox Series X|S, Nintendo Switch, and mobile devices. Lag-Free Connection: Experience zero audio delay with high-speed connections designed for competitive, fast-paced gameplay."
         },
@@ -82,7 +82,7 @@ products = [
         "id": 10,
         "name": "Keyboard Gaming",
         "price": 1299.99,
-        "category": "Phones",
+        "category": "Gaming",
         "image": "https://kreo-tech.com/cdn/shop/files/ZDDGZDFZDHDH.png?v=1781185245",
         "description": "The Samsung Galaxy S24 is a premium, compact flagship smartphone that prioritises high-end performance, mobile AI innovation, and a streamlined, comfortable design."
         },
@@ -136,6 +136,6 @@ DATABASE =[
 @app.get("/productCatecogires")
 def get_data():
     return {
-        "categories":["All Categories","Electronics","Phones","Clothing","Shoes","Laptop"],
+        "categories":["All Categories","Electronics","Phones","Clothing","Shoes","Laptop","Gaming"],
         "products":DATABASE
     }
