@@ -43,7 +43,7 @@ class MerchantApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Merchant',
         theme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xFFF8F8FC),
+          scaffoldBackgroundColor: const Color.fromARGB(251, 248, 248, 252),
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF3F51D8)),
           fontFamily: 'Inter',
         ),

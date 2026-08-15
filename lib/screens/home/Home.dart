@@ -12,7 +12,10 @@ class Home extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Scaffold(
-        appBar: AppBar(title: Text("Merchant", style: TextStyle(fontSize: 28))),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Text("Merchant", style: TextStyle(fontSize: 28)),
+        ),
         drawer: Drawer(),
         body: CustomScrollView(
           slivers: [

@@ -14,7 +14,7 @@ products = [
         "id": 2,
         "name": "Gaming Laptop",
         "price": 1599.99,
-        "category": "laptop",
+        "category": "Laptop",
         "image": "https://images.jdmagicbox.com/quickquotes/images_main/asus-rog-strix-hero-gaming-laptop-gl504-15-6-144hz-ips-type-slim-display-intel-core-i7-8750h-processor-up-to-3-9ghz-113434402-8iqea.jpg",
         "description": "Maximum Thermal Control: Keeps your high-end CPU and GPU running cool to eliminate FPS drops and thermal throttling. Pro-Grade Ergonomics: Elevates your screen to eye level to reduce neck strain during marathon gaming sessions. Heavy-Duty Stability: Built from rugged materials to securely support heavy 15.6\" to 17.3\" gaming rigs without shaking. Seamless Connectivity: Integrated ports expand your setup instantly for mice, keyboards, and external storage. Gaming Aesthetic: Sleek, modern design that integrates perfectly with your existing RGB setup."
     },
@@ -40,7 +40,7 @@ products = [
         "id": 5,
         "name": "Macbook",
         "price": 1599.99,
-        "category": "laptop",
+        "category": "Laptop",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsthQsnPU6yjwM4PLL1U9oXmady4g9vk_Z9IB2A5rZEg&s=10",
         "description": "The MacBook is Apple premium line of laptop computers, globally recognized for its sleek aluminum design, exceptional battery life, and powerful custom Apple Silicon processors."
     },
