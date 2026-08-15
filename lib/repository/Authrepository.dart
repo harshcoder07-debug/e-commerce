@@ -4,8 +4,8 @@ class AuthRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<User?> login({
-    required final String email,
-    required final String password,
+    required String email,
+    required String password,
   }) async {
     final result = await _auth.signInWithEmailAndPassword(
       email: email,

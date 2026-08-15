@@ -1,10 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopit/bloc/homebloc/homebloc_bloc.dart';
-import 'package:shopit/bloc/homebloc/homebloc_state.dart';
-import 'package:shopit/screens/home/productdetial.dart';
 import 'package:shopit/widgets/filterchoicechip.dart';
 import 'package:shopit/widgets/productgrid.dart';
 
