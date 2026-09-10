@@ -17,9 +17,26 @@ class Productdetial extends StatelessWidget {
               height: 350,
               child: Image.network(productdetail.image, fit: BoxFit.contain),
             ),
+            SizedBox(height: 10),
             Padding(
-              padding: EdgeInsets.all(8),
-              child: Text(productdetail.price.toString()),
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    productdetail.name,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.favorite_outline),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
