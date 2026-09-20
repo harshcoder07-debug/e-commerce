@@ -137,5 +137,5 @@ DATABASE =[
 def get_data():
     return {
         "categories":["All Categories","Electronics","Phones","Clothing","Shoes","Laptop","Gaming"],
-        "products":DATABASE
+        "products":products
     }

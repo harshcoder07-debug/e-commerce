@@ -167,7 +167,7 @@ class Home extends StatelessWidget {
                       ],
                     ),
                   ),
-
+                  
                   //coice chip categories
                 ],
               ),
