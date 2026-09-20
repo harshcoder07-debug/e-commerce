@@ -19,7 +19,6 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
-    // Always clean up controllers to prevent focus and cursor bugs
     emailcontroller.dispose();
     passwordcontroller.dispose();
     super.dispose();

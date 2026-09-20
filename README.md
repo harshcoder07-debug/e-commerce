@@ -16,7 +16,7 @@ A modern **E-Commerce mobile application built with Flutter**. This project prov
 * 💳 Checkout Flow
 * 🔐 User Authentication
 * ☁️ Firebase Integration
-* 🌐 REST API Integration
+* 🌐 Fast API Integration
 * 📱 Responsive UI
 * ⚡ Smooth and optimized performance
 
