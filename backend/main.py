@@ -145,5 +145,5 @@ def get_data():
             "Laptop",
             "Gaming"
         ],
-        "products": products
+        
     }
