@@ -133,33 +133,9 @@ DATABASE =[
     ]
 
 # //function for sending request to Api 
-@app.get("/categories")
-def get_categories():
+@app.get("/productCatecogires")
+def get_data():
     return {
-        "categories": [
-            {
-                "id": 1,
-                "name": "Electronics"
-            },
-            {
-                "id": 2,
-                "name": "Phones"
-            },
-            {
-                "id": 3,
-                "name": "Clothing"
-            },
-            {
-                "id": 4,
-                "name": "Shoes"
-            },
-            {
-                "id": 5,
-                "name": "Laptop"
-            },
-            {
-                "id": 6,
-                "name": "Gaming"
-            }
-        ]
+        "categories":["All Categories","Electronics","Phones","Clothing","Shoes","Laptop","Gaming"],
+        "products":DATABASE
     }
