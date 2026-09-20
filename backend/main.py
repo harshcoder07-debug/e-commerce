@@ -136,6 +136,14 @@ DATABASE =[
 @app.get("/productCatecogires")
 def get_data():
     return {
-        "categories":["All Categories","Electronics","Phones","Clothing","Shoes","Laptop","Gaming"],
-        "products":products
+        "categories": [
+            "All Categories",
+            "Electronics",
+            "Phones",
+            "Clothing",
+            "Shoes",
+            "Laptop",
+            "Gaming"
+        ],
+        "products": products
     }
