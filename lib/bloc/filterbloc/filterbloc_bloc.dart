@@ -11,7 +11,6 @@ class FilterBlocBloc extends Bloc<FilterBlocEvent, FilterBlocState> {
 
     on<LoadCategories>((event, emit) async {
       emit(FilterLoading());
-
       try {
         final response = await http.get(
           Uri.parse(

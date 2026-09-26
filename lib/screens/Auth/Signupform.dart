@@ -19,7 +19,7 @@ class _RegisterFormState extends State<RegisterForm> {
             showtext: 'Enter Email',
             controller: createAccemail,
             texticon: Icons.email_rounded,
-            rowtext: '',
+            rowtext: 'Enter Email',
           ),
         ],
       ),

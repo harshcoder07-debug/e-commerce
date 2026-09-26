@@ -134,14 +134,14 @@ DATABASE =[
 
 # //function for sending request to Api 
 @app.get("/productCatecogires")
-def get_data():
+def get_Categories():
     return {
         "categories": [
             "All Categories",
             "Electronics",
             "Phones",
             "Clothing",
-            "Shoes",
+            
             "Laptop",
             "Gaming"
         ],
