@@ -62,10 +62,7 @@ class Mainscreen extends StatelessWidget {
     return BlocBuilder<HomeNavBlocBloc, Navigationstate>(
       builder: (context, navselectstate) {
         return Scaffold(
-          body: 
-          
-          
-          IndexedStack(
+          body: IndexedStack(
             index: navselectstate.selectedindex,
             children: _screens,
           ),

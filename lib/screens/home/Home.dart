@@ -1,13 +1,42 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopit/bloc/homenavbloc/bloc/home_nav_bloc_bloc.dart';
+import 'package:shopit/bloc/homenavbloc/bloc/home_nav_bloc_event.dart';
 import 'package:shopit/widgets/filterchoicechip.dart';
 import 'package:shopit/widgets/productgrid.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final ScrollController _scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        context.read<HomeNavBlocBloc>().add(navhide());
+      } else if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        context.read<HomeNavBlocBloc>().add(navshow());
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -18,6 +47,7 @@ class Home extends StatelessWidget {
         ),
         drawer: Drawer(),
         body: CustomScrollView(
+          controller: _scrollController,
           slivers: [
             SliverToBoxAdapter(
               child: Column(
@@ -167,7 +197,7 @@ class Home extends StatelessWidget {
                       ],
                     ),
                   ),
-                  
+
                   //coice chip categories
                 ],
               ),
