@@ -1,42 +1,39 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-abstract class AuthState {
-  final bool isLogin;
+abstract class AuthState {}
 
-  AuthState({this.isLogin = true});
-}
-
-//login state
-class LoginState extends AuthState {
-  @override
-  bool get isLogin => true;
-}
-
-//sign up state
-class SignupState extends AuthState {
-  @override
-  bool get isLogin => false;
-}
-
-//Authinitial
 class Authinitial extends AuthState {}
 
-//Authloading
 class Authloading extends AuthState {}
 
-//Authsucess
+class LoginState extends AuthState {}
+
+class SignupState extends AuthState {}
+
 class Authsucess extends AuthState {
-  Authsucess(User user);
+  final User user;
+
+  Authsucess(this.user);
 }
 
-//failed Auth
 class Authfailed extends AuthState {
   final String erromessage;
 
   Authfailed(this.erromessage);
 }
 
-class Authlogout extends AuthState {
-  @override
-  bool get islogin => true;
+class Authlogout extends AuthState {}
+
+class registerloading extends AuthState {}
+
+class registersuccess extends AuthState {
+  final User user;
+
+  registersuccess(this.user);
+}
+
+class registerfailed extends AuthState {
+  final String message;
+
+  registerfailed(this.message);
 }

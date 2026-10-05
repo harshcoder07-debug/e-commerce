@@ -11,6 +11,8 @@ class AuthToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
+        final bool isLogin = state is! SignupState;
+
         return Container(
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 243, 239, 239),
@@ -24,16 +26,20 @@ class AuthToggle extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      context.read<AuthBloc>().add(ShowLogin());
+                      context.read<AuthBloc>().add(
+                        ShowLogin(),
+                      );
                     },
                     child: AnimatedContainer(
                       curve: Curves.easeIn,
-                      duration: Duration(milliseconds: 250),
+                      duration:
+                          const Duration(milliseconds: 250),
                       decoration: BoxDecoration(
-                        color: state.isLogin
-                            ? const Color.fromARGB(255, 251, 251, 251)
+                        color: isLogin
+                            ? Colors.white
                             : Colors.transparent,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius:
+                            BorderRadius.circular(20),
                       ),
                       height: 50,
                       child: Center(
@@ -41,11 +47,16 @@ class AuthToggle extends StatelessWidget {
                           "Login",
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: state.isLogin
+                            fontWeight: isLogin
                                 ? FontWeight.bold
                                 : FontWeight.normal,
-                            color: state.isLogin
-                                ? const Color.fromARGB(255, 12, 38, 210)
+                            color: isLogin
+                                ? const Color.fromARGB(
+                                    255,
+                                    12,
+                                    38,
+                                    210,
+                                  )
                                 : Colors.black,
                           ),
                         ),
@@ -54,23 +65,25 @@ class AuthToggle extends StatelessWidget {
                   ),
                 ),
               ),
-
-              //second container
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      context.read<AuthBloc>().add(ShowSignup());
+                      context.read<AuthBloc>().add(
+                        ShowSignup(),
+                      );
                     },
                     child: AnimatedContainer(
                       curve: Curves.easeIn,
-                      duration: Duration(milliseconds: 350),
+                      duration:
+                          const Duration(milliseconds: 350),
                       decoration: BoxDecoration(
-                        color: !state.isLogin
-                            ? const Color.fromARGB(255, 255, 255, 255)
+                        color: !isLogin
+                            ? Colors.white
                             : Colors.transparent,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius:
+                            BorderRadius.circular(20),
                       ),
                       height: 50,
                       child: Center(
@@ -78,11 +91,16 @@ class AuthToggle extends StatelessWidget {
                           "Signup",
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: !state.isLogin
+                            fontWeight: !isLogin
                                 ? FontWeight.bold
                                 : FontWeight.normal,
-                            color: !state.isLogin
-                                ? const Color.fromARGB(255, 12, 38, 210)
+                            color: !isLogin
+                                ? const Color.fromARGB(
+                                    255,
+                                    12,
+                                    38,
+                                    210,
+                                  )
                                 : Colors.black,
                           ),
                         ),

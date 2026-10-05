@@ -6,7 +6,6 @@ class ShowLogin extends AuthEvent {}
 
 class ShowSignup extends AuthEvent {}
 
-//loginreq
 class loginrequest extends AuthEvent {
   final String loginemail;
   final String loginpassword;
@@ -14,8 +13,7 @@ class loginrequest extends AuthEvent {
   loginrequest(this.loginemail, this.loginpassword);
 }
 
-//signuprequest
-class Signuprequest {
+class Signuprequest extends AuthEvent {
   final String Signupemail;
   final String signuppassword;
 
@@ -24,8 +22,17 @@ class Signuprequest {
 
 class Authuserchnged extends AuthEvent {
   final User user;
+
   Authuserchnged(this.user);
 }
+
 class AuthUserUnauthenticated extends AuthEvent {}
-//logout event
+
 class AuthUserLogoutChanged extends AuthEvent {}
+
+class Acccreaterequest extends AuthEvent {
+  final String signupmail;
+  final String Password;
+
+  Acccreaterequest(this.signupmail, this.Password);
+}

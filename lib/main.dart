@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:shopit/Services/Apiservice.dart';
 import 'package:shopit/bloc/Authbloc/auth_bloc.dart';
 import 'package:shopit/bloc/filterbloc/filterbloc_bloc.dart';
@@ -19,7 +20,9 @@ import 'package:shopit/widgets/Authwrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
+
   runApp(const MerchantApp());
 }
 
@@ -30,135 +33,253 @@ class MerchantApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => AuthBloc(authRepo: AuthRepository())),
-        BlocProvider(create: (context) => HomeNavBlocBloc()),
         BlocProvider(
-          create: (context) => HomeblocBloc(ApiService())..add(loadproducts()),
+          create: (_) => AuthBloc(
+            authRepo: AuthRepository(),
+          ),
         ),
         BlocProvider(
-          create: (context) => FilterBlocBloc()..add(LoadCategories()),
+          create: (_) => HomeNavBlocBloc(),
+        ),
+        BlocProvider(
+          create: (_) => HomeblocBloc(
+            ApiService(),
+          )..add(loadproducts()),
+        ),
+        BlocProvider(
+          create: (_) => FilterBlocBloc()
+            ..add(LoadCategories()),
         ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Merchant',
         theme: ThemeData(
-          scaffoldBackgroundColor: const Color.fromARGB(251, 248, 248, 252),
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF3F51D8)),
+          scaffoldBackgroundColor:
+              const Color.fromARGB(251, 248, 248, 252),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF3F51D8),
+          ),
           fontFamily: 'Inter',
         ),
-        home: AuthWrapper(),
+        home: const AuthWrapper(),
       ),
     );
   }
 }
 
-class Mainscreen extends StatelessWidget {
+class Mainscreen extends StatefulWidget {
   const Mainscreen({super.key});
-  // list of screens
-  static const List<Widget> _screens = [Home(), search(), cart(), Setting()];
+
+  static const List<Widget> screens = [
+    Home(),
+    search(),
+    cart(),
+    Setting(),
+  ];
+
+  @override
+  State<Mainscreen> createState() => _MainscreenState();
+}
+
+class _MainscreenState extends State<Mainscreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<HomeNavBlocBloc>().add(tabchanged(0));
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeNavBlocBloc, Navigationstate>(
-      builder: (context, navselectstate) {
+      builder: (context, navState) {
+        final int selectedIndex =
+            navState.selectedindex.clamp(0, 3);
+
         return Scaffold(
           body: IndexedStack(
-            index: navselectstate.selectedindex,
-            children: _screens,
+            index: selectedIndex,
+            children: Mainscreen.screens,
           ),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 10,
-                    blurStyle: BlurStyle.outer,
-                    color: Colors.blue,
-                    offset: Offset(3, 3),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(30),
-                color: Color.fromARGB(255, 253, 253, 253),
-                border: Border(
-                  top: BorderSide(
-                    color: Color(0xFFEAEAEA),
-                    width: 1,
-                  ), // Optional top border line
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: List.generate(4, (index) {
-                  //selctiuon set
-                  final bool isselected = navselectstate.selectedindex == index;
-                  //icon seted
-                  final IconData icon = index == 0
-                      ? Icons.home_outlined
-                      : index == 1
-                      ? Icons.search_outlined
-                      : index == 2
-                      ? Icons.shopping_cart
-                      : Icons.person;
-                  //lable set
-                  final String label = index == 0
-                      ? 'Home'
-                      : index == 1
-                      ? 'Search'
-                      : index == 2
-                      ? 'Cart'
-                      : 'Profile';
-                  return GestureDetector(
-                    onTap: () {
-                      context.read<HomeNavBlocBloc>().add(tabchanged(index));
-                    },
-                    behavior: HitTestBehavior.opaque,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AnimatedContainer(
-                          duration: Duration(milliseconds: 500),
-                          curve: Curves.easeIn,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 15,
+          bottomNavigationBar: ClipRect(
+            child: AnimatedSize(
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.easeInOut,
+              alignment: Alignment.bottomCenter,
+              child: navState.isnavvisibl
+                  ? SafeArea(
+                      top: false,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(
+                          12,
+                          10,
+                          12,
+                          10,
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
                             vertical: 8,
                           ),
                           decoration: BoxDecoration(
-                            color: isselected
-                                ? const Color.fromARGB(255, 60, 128, 230)
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Column(
-                            children: [
-                              Icon(
-                                icon,
-                                color: isselected
-                                    ? const Color.fromARGB(255, 253, 253, 253)
-                                    : const Color.fromARGB(255, 0, 0, 0),
+                            color: const Color.fromARGB(
+                              255,
+                              253,
+                              253,
+                              253,
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(30),
+                            border: Border.all(
+                              color: const Color(0xFFEAEAEA),
+                            ),
+                            boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 10,
+                                blurStyle: BlurStyle.outer,
+                                color: Colors.blue,
                               ),
                             ],
                           ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          label,
-                          style: TextStyle(
-                            fontSize: isselected ? 14 : 12,
-                            fontWeight: isselected
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            color: isselected
-                                ? const Color(0xFF3F51D8)
-                                : const Color.fromARGB(255, 0, 0, 0),
+                          child: Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceAround,
+                            children: List.generate(
+                              4,
+                              (index) {
+                                final bool isSelected =
+                                    selectedIndex == index;
+
+                                final IconData icon;
+
+                                switch (index) {
+                                  case 0:
+                                    icon =
+                                        Icons.home_outlined;
+                                    break;
+                                  case 1:
+                                    icon =
+                                        Icons.search_outlined;
+                                    break;
+                                  case 2:
+                                    icon =
+                                        Icons.shopping_cart_outlined;
+                                    break;
+                                  default:
+                                    icon =
+                                        Icons.person_outline;
+                                }
+
+                                final String label;
+
+                                switch (index) {
+                                  case 0:
+                                    label = 'Home';
+                                    break;
+                                  case 1:
+                                    label = 'Search';
+                                    break;
+                                  case 2:
+                                    label = 'Cart';
+                                    break;
+                                  default:
+                                    label = 'Profile';
+                                }
+
+                                return Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      if (selectedIndex !=
+                                          index) {
+                                        context
+                                            .read<
+                                                HomeNavBlocBloc>()
+                                            .add(
+                                              tabchanged(index),
+                                            );
+                                      }
+                                    },
+                                    behavior:
+                                        HitTestBehavior.opaque,
+                                    child: Column(
+                                      mainAxisSize:
+                                          MainAxisSize.min,
+                                      children: [
+                                        AnimatedContainer(
+                                          duration:
+                                              const Duration(
+                                            milliseconds: 300,
+                                          ),
+                                          curve:
+                                              Curves.easeInOut,
+                                          padding:
+                                              const EdgeInsets
+                                                  .symmetric(
+                                            horizontal: 15,
+                                            vertical: 8,
+                                          ),
+                                          decoration:
+                                              BoxDecoration(
+                                            color: isSelected
+                                                ? const Color
+                                                    .fromARGB(
+                                                    255,
+                                                    60,
+                                                    128,
+                                                    230,
+                                                  )
+                                                : Colors
+                                                    .transparent,
+                                            borderRadius:
+                                                BorderRadius
+                                                    .circular(
+                                              15,
+                                            ),
+                                          ),
+                                          child: Icon(
+                                            icon,
+                                            color: isSelected
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text(
+                                          label,
+                                          style: TextStyle(
+                                            fontSize: isSelected
+                                                ? 14
+                                                : 12,
+                                            fontWeight:
+                                                isSelected
+                                                    ? FontWeight
+                                                        .bold
+                                                    : FontWeight
+                                                        .normal,
+                                            color: isSelected
+                                                ? const Color(
+                                                    0xFF3F51D8,
+                                                  )
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                }),
-              ),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
             ),
           ),
         );

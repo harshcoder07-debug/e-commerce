@@ -3,15 +3,36 @@ import 'package:shopit/bloc/homenavbloc/bloc/home_nav_bloc_event.dart';
 import 'package:shopit/bloc/homenavbloc/bloc/home_nav_bloc_state.dart';
 
 class HomeNavBlocBloc extends Bloc<HomeNavBlocEvent, Navigationstate> {
-  HomeNavBlocBloc() : super(Navigationstate()) {
-    on<tabchanged>(((event, emit) {
-      emit(state.copyWith(selectedindex: event.index, isnavvisibl: true));
-    }));
-    on<navhide>((event, emit) {
-      state.copyWith(isnavvisibl: false);
+  HomeNavBlocBloc()
+      : super(
+          Navigationstate(
+            selectedindex: 0,
+            isnavvisibl: true,
+          ),
+        ) {
+    on<tabchanged>((event, emit) {
+      emit(
+        state.copyWith(
+          selectedindex: event.index,
+          isnavvisibl: true,
+        ),
+      );
     });
-     on<navshow>((event, emit) {
-      state.copyWith(isnavvisibl: true);
+
+    on<navhide>((event, emit) {
+      emit(
+        state.copyWith(
+          isnavvisibl: false,
+        ),
+      );
+    });
+
+    on<navshow>((event, emit) {
+      emit(
+        state.copyWith(
+          isnavvisibl: true,
+        ),
+      );
     });
   }
 }

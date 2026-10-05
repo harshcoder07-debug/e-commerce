@@ -13,25 +13,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   StreamSubscription<User?>? _authSubscription;
 
   AuthBloc({required this.authRepo}) : super(Authinitial()) {
-    // Listen for authentication state changes
-    _authSubscription = _firebaseAuth.authStateChanges().listen((user) {
-      if (user != null) {
-        add(Authuserchnged(user));
-      } else {
-        // 1. FIX: Dispatch a state change event, NOT the active logout process
-        add(AuthUserUnauthenticated());
-      }
+    on<ShowLogin>((event, emit) {
+      emit(LoginState());
     });
 
-    // Show Login Screen
-    on<ShowLogin>((event, emit) => emit(LoginState()));
+    on<ShowSignup>((event, emit) {
+      emit(SignupState());
+    });
 
-    // Show Signup Screen
-    on<ShowSignup>((event, emit) => emit(SignupState()));
-
-    // Login
     on<loginrequest>((event, emit) async {
       emit(Authloading());
+
       try {
         final user = await authRepo.login(
           email: event.loginemail,
@@ -50,27 +42,47 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
-    // User authenticated
+    on<Acccreaterequest>((event, emit) async {
+      emit(registerloading());
+
+      try {
+        final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: event.signupmail,
+          password: event.Password,
+        );
+
+        emit(registersuccess(user.user!));
+      } on FirebaseAuthException catch (e) {
+        emit(registerfailed(e.message ?? 'Registration failed'));
+      } catch (e) {
+        emit(registerfailed(e.toString()));
+      }
+    });
+
     on<Authuserchnged>((event, emit) {
       emit(Authsucess(event.user));
     });
 
-    // 2. FIX: Event fired automatically when Firebase stream says user is null
     on<AuthUserUnauthenticated>((event, emit) {
-      emit(
-        Authlogout(),
-      ); // Just update the UI state, do not call signOut() here!
+      emit(Authlogout());
     });
 
-    // 3. FIX: Event fired ONLY when user taps "Logout" button in UI
     on<AuthUserLogoutChanged>((event, emit) async {
       emit(Authloading());
+
       try {
-        // This triggers authStateChanges().listen to fire null,
-        // which handles emitting Authlogout() via AuthUserUnauthenticated
         await _firebaseAuth.signOut();
+        emit(Authlogout());
       } catch (e) {
         emit(Authfailed(e.toString()));
+      }
+    });
+
+    _authSubscription = _firebaseAuth.authStateChanges().listen((user) {
+      if (user != null) {
+        add(Authuserchnged(user));
+      } else {
+        add(AuthUserUnauthenticated());
       }
     });
   }
