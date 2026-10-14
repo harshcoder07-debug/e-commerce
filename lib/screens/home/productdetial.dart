@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopit/Model/product_model.dart';
+import 'package:shopit/bloc/productdetail/productdetail_bloc_bloc.dart';
+import 'package:shopit/bloc/productdetail/productdetail_bloc_event.dart';
 
 class Productdetial extends StatelessWidget {
   final Product productdetail;
@@ -30,7 +33,7 @@ class Productdetial extends StatelessWidget {
             ),
             child: Text(
               productdetail.name,
-              style: TextStyle(fontSize: 26, color: Colors.white),
+              style: TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),
         ),
@@ -69,6 +72,28 @@ class Productdetial extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(productdetail.description),
+            ),
+            BlocConsumer(
+              builder: (context, state) {
+                return GestureDetector(
+                  onTap: () {
+                    context.read()<ProductdetailBlocBloc>().add(addtocart(productdetail));
+                  },
+                  child: Container(
+                    height: 100,
+                    width: 50,
+                    decoration: BoxDecoration(color: Colors.blue),
+                    child: Text("Add to cart"),
+                  ),
+                );
+              },
+              listener: (context, state) {
+                if (state is addtocart) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Prduct added Sucessfully",style: TextStyle(color: Colors.white),)),
+                  );
+                }
+              },
             ),
           ],
         ),
