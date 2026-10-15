@@ -11,11 +11,22 @@ class HomeblocBloc extends Bloc<HomeblocEvent, HomeblocState> {
       emit(homeloadingstate());
 
       try {
-        final products = await apiService.getProducts(category: event.category);
+        final products = await apiService.getProducts(
+          category: event.category,
+        );
+
+        print('Products fetched: ${products.length}');
+
         emit(homeloaded(products));
-      } catch (e) {
+      } catch (e, stackTrace) {
+        print('Product fetch error: $e');
+        print(stackTrace);
+
         emit(homerror(e.toString()));
       }
     });
+
+
+    add(loadproducts());
   }
 }
