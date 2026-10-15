@@ -1,9 +1,12 @@
+
+
 class Product {
   int id;
   String name;
   double price;
   String image;
   String description;
+  int quantity;
 
   Product({
     required this.id,
@@ -11,6 +14,7 @@ class Product {
     required this.price,
     required this.image,
     required this.description,
+    required this.quantity,
   });
 
   Product.fromJson(Map<String, dynamic> json)
@@ -18,5 +22,6 @@ class Product {
       name = json["name"],
       price = (json["price"] as num).toDouble(),
       image = json["image"],
-      description = json["description"];
+      description = json["description"],
+      quantity = json["quantity"];
 }

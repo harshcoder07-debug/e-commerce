@@ -11,7 +11,7 @@ import 'package:shopit/bloc/homebloc/homebloc_event.dart';
 import 'package:shopit/bloc/homenavbloc/bloc/home_nav_bloc_bloc.dart';
 import 'package:shopit/bloc/homenavbloc/bloc/home_nav_bloc_event.dart';
 import 'package:shopit/bloc/homenavbloc/bloc/home_nav_bloc_state.dart';
-import 'package:shopit/bloc/productdetail/productdetail_bloc_bloc.dart';
+import 'package:shopit/bloc/productdetail/productdetailbloc_bloc.dart';
 import 'package:shopit/repository/Authrepository.dart';
 import 'package:shopit/screens/Search/Search.dart';
 import 'package:shopit/screens/cart/Cart.dart';
@@ -51,7 +51,9 @@ class MerchantApp extends StatelessWidget {
           create: (_) => FilterBlocBloc()
             ..add(LoadCategories()),
         ),
-        BlocProvider(create: (_) => ProductdetailBlocBloc())
+      BlocProvider<ProductdetailblocBloc>(
+          create: (_) => ProductdetailblocBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

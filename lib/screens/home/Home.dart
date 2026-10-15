@@ -1,6 +1,4 @@
-
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,13 +17,14 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
-  @override
-  void initstate() {
+  void initState() {
+    // Fixed: Capitalized 'S' and removed duplicate @override
+    super.initState(); // Added: Always call super.initState()
     if (widget.susccessmsg) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("Account Created sucessfully")));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Account Created successfully")),
+        );
       });
     }
   }
@@ -39,9 +38,7 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.white,
           title: const Text("Merchant", style: TextStyle(fontSize: 28)),
         ),
-
-        drawer: Drawer(),
-
+        drawer: const Drawer(),
         body: NotificationListener<UserScrollNotification>(
           onNotification: (notification) {
             if (notification.direction == ScrollDirection.reverse) {
@@ -49,10 +46,8 @@ class _HomeState extends State<Home> {
             } else if (notification.direction == ScrollDirection.forward) {
               context.read<HomeNavBlocBloc>().add(navshow());
             }
-
             return false;
           },
-
           child: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
@@ -67,7 +62,6 @@ class _HomeState extends State<Home> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
                     const Text(
                       "Excellence",
                       style: TextStyle(
@@ -76,7 +70,6 @@ class _HomeState extends State<Home> {
                         color: Colors.blue,
                       ),
                     ),
-
                     SizedBox(
                       height: 430,
                       width: double.infinity,
@@ -93,7 +86,6 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           ),
-
                           Positioned(
                             bottom: 20,
                             left: 20,
@@ -137,9 +129,7 @@ class _HomeState extends State<Home> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-
                                       const SizedBox(height: 10),
-
                                       const Text(
                                         "The Art of Slow\nLiving",
                                         textAlign: TextAlign.center,
@@ -149,9 +139,7 @@ class _HomeState extends State<Home> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-
                                       const SizedBox(height: 20),
-
                                       ElevatedButton(
                                         onPressed: () {},
                                         style: ElevatedButton.styleFrom(
@@ -181,7 +169,6 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
@@ -200,18 +187,14 @@ class _HomeState extends State<Home> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-
                               TextButton(
                                 onPressed: () {},
                                 child: const Text("See All"),
                               ),
                             ],
                           ),
-
                           const SizedBox(height: 10),
-
                           Filterchoicechip(),
-
                           const SizedBox(height: 20),
                         ],
                       ),
@@ -219,7 +202,6 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-
               const ProductGrid(),
             ],
           ),

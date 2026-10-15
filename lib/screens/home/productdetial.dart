@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopit/Model/product_model.dart';
-import 'package:shopit/bloc/productdetail/productdetail_bloc_bloc.dart';
-import 'package:shopit/bloc/productdetail/productdetail_bloc_event.dart';
+
+import 'package:shopit/bloc/productdetail/productdetailbloc_bloc.dart';
+import 'package:shopit/bloc/productdetail/productdetailbloc_event.dart';
+import 'package:shopit/bloc/productdetail/productdetailbloc_state.dart';
 
 class Productdetial extends StatelessWidget {
   final Product productdetail;
@@ -33,7 +35,7 @@ class Productdetial extends StatelessWidget {
             ),
             child: Text(
               productdetail.name,
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: const TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),
         ),
@@ -48,7 +50,7 @@ class Productdetial extends StatelessWidget {
               height: 350,
               child: Image.network(productdetail.image, fit: BoxFit.contain),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: Row(
@@ -56,7 +58,7 @@ class Productdetial extends StatelessWidget {
                 children: [
                   Text(
                     productdetail.name,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.blue,
@@ -64,7 +66,7 @@ class Productdetial extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.favorite_outline),
+                    icon: const Icon(Icons.favorite_outline),
                   ),
                 ],
               ),
@@ -73,26 +75,54 @@ class Productdetial extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(productdetail.description),
             ),
-            BlocConsumer(
-              builder: (context, state) {
-                return GestureDetector(
-                  onTap: () {
-                    context.read()<ProductdetailBlocBloc>().add(addtocart(productdetail));
-                  },
-                  child: Container(
-                    height: 100,
-                    width: 50,
-                    decoration: BoxDecoration(color: Colors.blue),
-                    child: Text("Add to cart"),
-                  ),
-                );
-              },
+            BlocConsumer<ProductdetailblocBloc, ProductdetailblocState>(
               listener: (context, state) {
+                // Assuming 'addtocart' is a state name in your productdetailbloc_state.dart
                 if (state is addtocart) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Prduct added Sucessfully",style: TextStyle(color: Colors.white),)),
+                    const SnackBar(
+                      content: Text(
+                        "Product added Successfully",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                   );
                 }
+              },
+              builder: (context, state) {
+                return Row(
+                  children: [
+                     CircleAvatar(
+                      backgroundColor:Colors.blue,
+                      child: IconButton(onPressed: (){}, icon: Icon(Icons.add))),
+                     CircleAvatar(
+                       backgroundColor:Colors.blue,
+                      child: IconButton(onPressed: (){}, icon: Icon(Icons.remove))),
+                    GestureDetector(
+                      onTap: () {
+                       
+                        BlocProvider.of<ProductdetailblocBloc>(context)
+                            .add(addtocart(productdetail));
+                      },
+                      
+                      child: Container(
+                        height: 50,
+                        width: 150, 
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "Add to cart",
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                    
+                  ],
+                );
               },
             ),
           ],
