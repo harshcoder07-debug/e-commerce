@@ -9,3 +9,9 @@ class CartUpdated extends ProductdetailblocState {
 
   CartUpdated(this.products);
 }
+class quantityupdated extends ProductdetailblocState{
+  final Product product;
+
+  quantityupdated(this.product);
+  
+}

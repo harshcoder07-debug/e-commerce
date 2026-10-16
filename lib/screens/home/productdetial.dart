@@ -42,91 +42,132 @@ class Productdetial extends StatelessWidget {
         elevation: 6,
         backgroundColor: Colors.blue,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: 350,
-              child: Image.network(productdetail.image, fit: BoxFit.contain),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    productdetail.name,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
-                    ),
+      body: BlocConsumer<ProductdetailblocBloc, ProductdetailblocState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: 350,
+                  child: Image.network(
+                    productdetail.image,
+                    fit: BoxFit.contain,
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.favorite_outline),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(productdetail.description),
-            ),
-            BlocConsumer<ProductdetailblocBloc, ProductdetailblocState>(
-              listener: (context, state) {
-                // Assuming 'addtocart' is a state name in your productdetailbloc_state.dart
-                if (state is addtocart) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        "Product added Successfully",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  );
-                }
-              },
-              builder: (context, state) {
-                return Row(
-                  children: [
-                     CircleAvatar(
-                      backgroundColor:Colors.blue,
-                      child: IconButton(onPressed: (){}, icon: Icon(Icons.add))),
-                     CircleAvatar(
-                       backgroundColor:Colors.blue,
-                      child: IconButton(onPressed: (){}, icon: Icon(Icons.remove))),
-                    GestureDetector(
-                      onTap: () {
-                       
-                        BlocProvider.of<ProductdetailblocBloc>(context)
-                            .add(addtocart(productdetail));
-                      },
-                      
-                      child: Container(
-                        height: 50,
-                        width: 150, 
-                        decoration: BoxDecoration(
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        productdetail.name,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                           color: Colors.blue,
-                          borderRadius: BorderRadius.circular(20),
                         ),
-                        child: const Center(
-                          child: Text(
-                            "Add to cart",
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.favorite_outline),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(productdetail.description),
+                ),
+                BlocConsumer<ProductdetailblocBloc, ProductdetailblocState>(
+                  listener: (context, state) {
+                    // Assuming 'addtocart' is a state name in your productdetailbloc_state.dart
+                    if (state is addtocart) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            "Product added Successfully",
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.blue.withValues(alpha: 0.2),
+                                  blurRadius: 10,
+                                  spreadRadius: 2,
+                                  offset: const Offset(0, 5),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.blue,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      context.read<ProductdetailblocBloc>().add(
+                                        increasequantity(productdetail),
+                                      );
+                                    },
+                                    icon: Icon(Icons.add),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                CircleAvatar(
+                                  backgroundColor: Colors.blue,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      context.read<ProductdetailblocBloc>().add(
+                                        decreaseequantity(productdetail),
+                                      );
+                                    },
+                                    icon: Icon(Icons.remove),
+                                  ),
+                                ),
+
+                                Text('${productdetail.quantity}')
+                              ],
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            height: 50,
+                            width: 100,
+                            child: Center(
+                              child: Text(
+                                "Add to Cart",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    
-                  ],
-                );
-              },
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
