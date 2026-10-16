@@ -145,17 +145,22 @@ class Productdetial extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            height: 50,
-                            width: 100,
-                            child: Center(
-                              child: Text(
-                                "Add to Cart",
-                                style: TextStyle(color: Colors.white),
+                          InkWell(
+                            onTap: () {
+                              context.read<ProductdetailblocBloc>().add(addtocart(productdetail));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              height: 50,
+                              width: 100,
+                              child: Center(
+                                child: Text(
+                                  "Add to Cart",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ),
                           ),

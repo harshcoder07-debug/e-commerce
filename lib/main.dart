@@ -78,7 +78,7 @@ class Mainscreen extends StatefulWidget {
   static const List<Widget> screens = [
     Home(),
     search(),
-    cart(),
+    Cart(),
     Setting(),
   ];
 
