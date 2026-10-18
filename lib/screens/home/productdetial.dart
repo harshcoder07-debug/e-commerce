@@ -34,8 +34,11 @@ class Productdetial extends StatelessWidget {
               bottom: 5,
             ),
             child: Text(
-              productdetail.name,
-              style: const TextStyle(fontSize: 18, color: Colors.white),
+              "Merchnat",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
@@ -70,9 +73,31 @@ class Productdetial extends StatelessWidget {
                           color: Colors.blue,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.favorite_outline),
+                      BlocBuilder<
+                        ProductdetailblocBloc,
+                        ProductdetailblocState
+                      >(
+                        builder: (context, state) {
+                          final isFavorite =
+                              state is favstate &&
+                                  identical(state.product, productdetail)
+                              ? state.isfav
+                              : productdetail.isfav;
+
+                          return IconButton(
+                            onPressed: () {
+                              context.read<ProductdetailblocBloc>().add(
+                                isfav(productdetail),
+                              );
+                            },
+                            icon: Icon(
+                              isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_outline,
+                              color: isFavorite ? Colors.red : Colors.grey,
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -83,16 +108,41 @@ class Productdetial extends StatelessWidget {
                 ),
                 BlocConsumer<ProductdetailblocBloc, ProductdetailblocState>(
                   listener: (context, state) {
-                    // Assuming 'addtocart' is a state name in your productdetailbloc_state.dart
-                    if (state is addtocart) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            "Product added Successfully",
-                            style: TextStyle(color: Colors.white),
+                    if (state is CartUpdated) {
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(
+                          SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: const Color.fromARGB(
+                              255,
+                              3,
+                              66,
+                              238,
+                            ),
+                            elevation: 0,
+                            duration: const Duration(seconds: 2),
+                            content: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              height: 40,
+                              width: 300,
+                              child: const Row(
+                                children: [
+                                  Icon(
+                                    Icons.check_circle_outline,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "Product Added succesfully",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                      );
+                        );
                     }
                   },
                   builder: (context, state) {
@@ -140,14 +190,27 @@ class Productdetial extends StatelessWidget {
                                     icon: Icon(Icons.remove),
                                   ),
                                 ),
+                                SizedBox(width: 10),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: Colors.blue,
+                                  ),
+                                  height: 40,
+                                  width: 100,
 
-                                Text('${productdetail.quantity}')
+                                  child: Center(
+                                    child: Text('${productdetail.quantity}',style: TextStyle(fontSize: 16),),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                           InkWell(
                             onTap: () {
-                              context.read<ProductdetailblocBloc>().add(addtocart(productdetail));
+                              context.read<ProductdetailblocBloc>().add(
+                                addtocart(productdetail),
+                              );
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -160,6 +223,7 @@ class Productdetial extends StatelessWidget {
                                 child: Text(
                                   "Add to Cart",
                                   style: TextStyle(color: Colors.white),
+                                  
                                 ),
                               ),
                             ),
