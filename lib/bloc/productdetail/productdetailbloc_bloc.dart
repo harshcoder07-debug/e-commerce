@@ -1,6 +1,5 @@
 
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopit/Model/product_model.dart' show Product;
 import 'package:shopit/bloc/productdetail/productdetailbloc_event.dart';

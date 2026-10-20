@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocConsumer, ReadContext;
 import 'package:shopit/bloc/productdetail/productdetailbloc_bloc.dart';
-import 'package:shopit/bloc/productdetail/productdetailbloc_event.dart';
 import 'package:shopit/bloc/productdetail/productdetailbloc_state.dart';
 
 class Cart extends StatelessWidget {
@@ -27,32 +26,99 @@ class Cart extends StatelessWidget {
             itemCount: getproduct.length,
             itemBuilder: (context, index) {
               final product = getproduct[index];
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(78, 33, 149, 243),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  height: 70,
-                  width: 200,
-                  child: Row(
-                    children: [
-                      Image.network(product.image, fit: BoxFit.cover),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(product.name, textAlign: TextAlign.center),
+              return Container(
+                color: Colors.transparent,
+                margin: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadiusGeometry.circular(20),
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        color: Colors.black,
+                        child: Image.network(
+                          product.image,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Center(
+                                child: Icon(
+                                  Icons.broken_image,
+                                  color: Colors.white24,
+                                ),
+                              ),
+                        ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          context.read<ProductdetailblocBloc>().add(
-                            removefromcart(product),
-                          );
-                        },
-                        icon: Icon(Icons.delete, color: Colors.red),
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  product.name,
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                '\$${product.price}',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                height: 38,
+
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.remove),
+                                      constraints: BoxConstraints(),
+                                    ),
+                                    Text('${product.quantity}'),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.add),
+                                      constraints: BoxConstraints(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Spacer(),
+                              GestureDetector(onTap: () {
+                                
+                              },child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  
+                                  Icon(Icons.delete),
+                                  Text("Remove")],),)
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               );
             },

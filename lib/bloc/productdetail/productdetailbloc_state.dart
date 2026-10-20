@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:shopit/Model/product_model.dart';
 
 abstract class ProductdetailblocState {}

@@ -147,3 +147,8 @@ def get_Categories():
         ],
         
     }
+
+# //vieew cart
+@app.get("/viewcart")
+def  get_cart():
+    return viewcart
