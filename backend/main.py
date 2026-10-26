@@ -147,8 +147,14 @@ def get_products_by_category(category: str):
 # Get all available categories
 @app.get("/categories")
 def get_categories():
-    return {
-        "categories": sorted(set(
-            product["category"] for product in products
-        ))
-    }
+     categories = [
+    "All Categories",
+    "Clothing",
+    "Electronics",
+    "Electronic",
+    "Phones",
+    "Laptop",
+    "Gaming",
+    "Shoes"
+]
+
