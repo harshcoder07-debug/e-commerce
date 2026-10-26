@@ -12,14 +12,3 @@ ios/Runner/GoogleService-Info.plist
 .idea/
 .vscode/
 
-# Firebase / Google Cloud private keys
-backend/servicekeyprivate.json
-backend/serviceAccountKey.json
-**/*servicekeyprivate.json
-**/*serviceAccountKey.json
-
-# Python
-venv/
-__pycache__/
-*.py[cod]
-.env
