@@ -9,9 +9,9 @@ security = HTTPBearer(auto_error=False)
 
 
 def verify_firebase_token(
-    credentials: HTTPAuthorizationCredentials | None = Depends(security)
+    token: HTTPAuthorizationCredentials | None = Depends(security)
 ):
-    if credentials is None:
+    if token is None:
         raise HTTPException(
             status_code=401,
             detail="Please log in first"
@@ -24,7 +24,7 @@ def verify_firebase_token(
                 "serviceAccountKey.json"
             )
 
-            if not os.path.exists(key_path):
+            if not os.path.isfile(key_path):
                 raise HTTPException(
                     status_code=503,
                     detail="Firebase credentials not configured"
@@ -34,17 +34,14 @@ def verify_firebase_token(
                 credentials.Certificate(key_path)
             )
 
-        decoded_token = auth.verify_id_token(
-            credentials.credentials
-        )
-
+        decoded_token = auth.verify_id_token(token.credentials)
         return decoded_token
 
     except HTTPException:
         raise
 
     except Exception as error:
-        print("Firebase error:", error)
+        print("Firebase verification error:", error)
         raise HTTPException(
             status_code=401,
             detail="Invalid or expired Firebase token"
