@@ -130,31 +130,44 @@ def get_product_by_id(product_id: int):
         if product["id"] == product_id:
             return product
 
-   
+    raise HTTPException(
+        status_code=404,
+        detail="Product not found"
+    )
 
 
 # Get products by category
 @app.get("/category/{category}")
 def get_products_by_category(category: str):
+    if category.lower() == "all categories":
+        return products
+
     result = [
         product for product in products
         if product["category"].lower() == category.lower()
     ]
 
-   
+    if not result:
+        raise HTTPException(
+            status_code=404,
+            detail="Category not found"
+        )
+
+    return result
 
 
 # Get all available categories
 @app.get("/categories")
 def get_categories():
-     categories = [
-    "All Categories",
-    "Clothing",
-    "Electronics",
-    "Electronic",
-    "Phones",
-    "Laptop",
-    "Gaming",
-    "Shoes"
-]
+    categories = [
+        "All Categories",
+        "Clothing",
+        "Electronics",
+        "Electronic",
+        "Phones",
+        "Laptop",
+        "Gaming",
+        "Shoes"
+    ]
 
+    return {"categories": categories}
