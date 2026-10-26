@@ -11,3 +11,16 @@ ios/Runner/GoogleService-Info.plist
 
 .idea/
 .vscode/
+
+# Firebase private key
+backend/serviceAccountKey.json
+
+# Python virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env

@@ -15,7 +15,7 @@ class Cart extends StatelessWidget {
         builder: (context, state) {
           final getproduct = context.read<ProductdetailblocBloc>().cartproduct;
 
-          // FIX: Added 'return' here so it stops and displays the centered text
+          
           if (getproduct.isEmpty) {
             return const Center(
               child: Text("Your cart is empty", style: TextStyle(fontSize: 18)),

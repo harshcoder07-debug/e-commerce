@@ -49,19 +49,48 @@ class ProductCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      product.name,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      height: 35,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.blue,
+                            offset: const Offset(3, 3),
+                            blurRadius: 4,
+                            spreadRadius: 2,
+                          ),
+                        ],
+                        color: const Color.fromARGB(151, 10, 71, 240),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          product.name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
-                    Text(
-                      "${product.price} ₹",
-                      style: const TextStyle(
-                        color: Colors.blue,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.blue),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "${product.price} ₹",
+                          style: const TextStyle(
+                            color: Colors.blue,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -73,7 +102,7 @@ class ProductCard extends StatelessWidget {
               Text(
                 product.description,
                 maxLines: 2,
-                style: TextStyle(fontWeight: FontWeight.w300),
+                style: TextStyle(fontWeight: FontWeight.w300,color: Colors.black),
               ),
             ],
           ),
