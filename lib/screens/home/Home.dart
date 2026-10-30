@@ -18,8 +18,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
-    // Fixed: Capitalized 'S' and removed duplicate @override
-    super.initState(); // Added: Always call super.initState()
+  
+   
+    super.initState(); 
     if (widget.susccessmsg) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.of(context).showSnackBar(

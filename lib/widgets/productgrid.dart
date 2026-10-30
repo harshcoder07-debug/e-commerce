@@ -5,6 +5,8 @@ import 'package:shopit/bloc/homebloc/homebloc_bloc.dart' show HomeblocBloc;
 import 'package:shopit/bloc/homebloc/homebloc_event.dart';
 
 import 'package:shopit/bloc/homebloc/homebloc_state.dart';
+import 'package:shopit/bloc/productdetail/productdetailbloc_bloc.dart';
+import 'package:shopit/bloc/productdetail/productdetailbloc_event.dart';
 import 'package:shopit/widgets/Productcard.dart';
 
 class ProductGrid extends StatefulWidget {
@@ -26,7 +28,7 @@ class _ProductGridState extends State<ProductGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeblocBloc, HomeblocState>(
+    return BlocConsumer<HomeblocBloc, HomeblocState>(
       builder: (context, state) {
         if (state is homeintial || state is homeloadingstate) {
           return const SliverToBoxAdapter(
@@ -47,8 +49,11 @@ class _ProductGridState extends State<ProductGrid> {
           }
 
           return SliverGrid(
+
             delegate: SliverChildBuilderDelegate((context, index) {
-              return ProductCard(product: state.product[index]);
+              return ProductCard(
+                
+                product: state.product[index]);
             }, childCount: state.product.length),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 1,
@@ -66,7 +71,12 @@ class _ProductGridState extends State<ProductGrid> {
         }
 
         return const SliverToBoxAdapter(child: SizedBox.shrink());
-      },
+      }, listener: (BuildContext context, HomeblocState state) { 
+
+        if (state is homeloaded) {
+          context.read<ProductdetailblocBloc>().add(loadfav(state.product));
+        }
+       },
     );
   }
 }

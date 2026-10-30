@@ -130,10 +130,7 @@ def get_product_by_id(product_id: int):
         if product["id"] == product_id:
             return product
 
-    raise HTTPException(
-        status_code=404,
-        detail="Product not found"
-    )
+ 
 
 
 # Get products by category
@@ -147,12 +144,7 @@ def get_products_by_category(category: str):
         if product["category"].lower() == category.lower()
     ]
 
-    if not result:
-        raise HTTPException(
-            status_code=404,
-            detail="Category not found"
-        )
-
+    
     return result
 
 

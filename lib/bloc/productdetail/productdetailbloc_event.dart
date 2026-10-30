@@ -25,8 +25,17 @@ class decreaseequantity extends ProductdetailblocEvent {
 
   decreaseequantity(this.product);
 }
-class isfav extends ProductdetailblocEvent{
+
+// Favorite event
+class isfav extends ProductdetailblocEvent {
   final Product product;
 
   isfav(this.product);
+}
+
+//load saved state
+
+class loadfav extends ProductdetailblocEvent{
+  final List<Product> products;
+  loadfav(this.products);
 }

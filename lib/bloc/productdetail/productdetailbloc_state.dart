@@ -23,9 +23,13 @@ class quantityupdated extends ProductdetailblocState {
 class favstate extends ProductdetailblocState {
   final Product product;
   final bool isfav;
-
-  favstate({
+ 
+  favstate(  {
     required this.product,
     required this.isfav,
   });
+}
+class favloaded extends ProductdetailblocState{
+  final List<Product> products;
+  favloaded(this.products);
 }
